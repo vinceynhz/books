@@ -1,4 +1,4 @@
-import {addBook} from "actions";
+import {addBook} from "lib/actions";
 import React from "react";
 import {connect} from "react-redux";
 

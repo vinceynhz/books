@@ -1,5 +1,38 @@
 body {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+}
+
+button {
+  border: none;
+  padding: 0;
+  text-decoration: none;
+  display: block;
+  background: none;
+  outline: none;
+  text-align: unset;
+}
+
+.app-content {
+  padding-top: 62px;
+  padding-bottom: 4px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading > img {
+  width: 144px;
+  height: 144px;
+}
+
+.loading > p {
+  font-size: 130%;
+  margin-top: -20px;
 }

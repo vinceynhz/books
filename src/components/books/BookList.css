@@ -1,0 +1,176 @@
+.book-container {
+  max-height: 72px;
+  width: 95%;
+
+  border-radius: 3px;
+  box-shadow: 0 1px 4px lightgray;
+
+  overflow: hidden;
+  margin: 8px auto;
+  padding: 0 8px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  transition: all 0.5s ease-in-out;
+}
+
+.book-container:active {
+  background-color: lightgray;
+}
+
+.book-container.open {
+  max-height: 100px;
+}
+
+.book-container > .initials {
+  border-radius: 50%;
+  color: white;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 110%;
+
+  box-shadow: 0 0 4px lightgray;
+}
+
+.book-container > .book {
+  box-sizing: border-box;
+  margin: 0 0 0 10px;
+
+  /*width: 84%;*/
+  flex-grow: 2;
+  max-width: 82%;
+  height: 72px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.book-container > .book > .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 99%;
+  font-size: 1.1em;
+}
+
+.book-container > .book > .author {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 99%;
+  font-size: 0.9em;
+  color: slategray;
+}
+
+.book-container > .chip-container {
+  flex-grow: 3;
+  width: 100%;
+  min-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.book-container > .chip-container > .chip {
+  display: inline-block;
+  margin: 4px;
+  padding: 3px 20px;
+  border-radius: 25px;
+  background-color: rgba(152, 152, 152, 0.5);
+  font-size: 90%;
+}
+
+.book-container > .chip-container > .chip > .label {
+  display: none;
+}
+
+.book-container > .chip-container > .chip:last-child {
+  margin-right: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .book-container {
+    max-height: unset;
+    width: 200px;
+    height: 180px;
+    margin: 10px;
+    padding: 8px;
+
+    float: left;
+
+    flex-direction: column;
+    align-items: unset;
+
+    border-left: 10px solid;
+  }
+
+  .book-container.open {
+    max-height: unset;
+  }
+
+  .book-container > .initials {
+    display: none;
+  }
+
+  .book-container > .book {
+    margin: 0;
+    padding: 0;
+
+    max-width: 200px;
+    height: 72px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .book-container > .book > .title {
+    white-space: unset;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: unset;
+    line-height: 1.2em;
+    font-size: 1.1em;
+    max-height: 2.4em;
+  }
+
+  .book-container > .chip-container {
+    flex-grow: 3;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+
+  .book-container > .chip-container > .chip {
+    border-radius: unset;
+    background: unset;
+    margin: unset;
+    padding: unset;
+    font-size: 90%;
+    color: slategray;
+  }
+
+  .book-container > .chip-container > .chip > .label {
+    display: inline-block;
+    width: 30%;
+    margin-right: 3px;
+  }
+
+  .book-container > .chip-container > .chip > .label:after {
+    content: ': ';
+  }
+}
