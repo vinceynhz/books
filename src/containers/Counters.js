@@ -1,9 +1,11 @@
+import {fetchBooks, fetchAuthors} from "lib/actions";
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
-const Count = ({updating, lastUpdate, count, type}) => (
-  <div>{updating ? "Updating..." : `${count} ${type} in the library. Last update at ${lastUpdate.toISOString()}`}</div>
+const Count = ({updating, lastUpdate, count, type, onClick}) => (
+  <div
+    onClick={onClick}>{updating ? "Updating..." : `${count} ${type} in the library. Last update at ${lastUpdate.toISOString()}`}</div>
 );
 
 Count.propTypes = {
@@ -11,6 +13,7 @@ Count.propTypes = {
   lastUpdate: PropTypes.instanceOf(Date).isRequired,
   count: PropTypes.number,
   type: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 };
 
 Count.defaultProps = {
@@ -25,6 +28,10 @@ const mapBooksState = state => ({
   type: "books",
 });
 
+const mapBooksDispatch = dispatch => ({
+  onClick: () => dispatch(fetchBooks()),
+});
+
 const mapAuthorsState = state => ({
   updating: state.updatingAuthors,
   lastUpdate: state.lastAuthorsUpdate,
@@ -32,5 +39,9 @@ const mapAuthorsState = state => ({
   type: "authors",
 });
 
-export const BookCount = connect(mapBooksState)(Count);
-export const AuthorCount = connect(mapAuthorsState)(Count);
+const mapAuthorsDispatch = dispatch => ({
+  onClick: () => dispatch(fetchAuthors()),
+});
+
+export const BookCount = connect(mapBooksState, mapBooksDispatch)(Count);
+export const AuthorCount = connect(mapAuthorsState, mapAuthorsDispatch)(Count);

@@ -2,6 +2,7 @@ import AlphabeticNavigation, {alphabetizeIds} from "components/AlphabeticNavigat
 import {BookPropType} from "lib/PropTypeDefs";
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 // import "./BookList.css";
 
@@ -26,11 +27,19 @@ import PropTypes from "prop-types";
 //   );
 // };
 
-const Book = ({id, book, selected, onSelectBook}) => (
+const Book = ({id, book, authors, selected, onSelectBook, editPath, deletePath}) => (
   <div onClick={() => onSelectBook(id)}>
     <p>Title: {book.title}</p>
-    {selected && <p>Author: {book.author}</p>}
+    {selected && <p>Author: {book.authors.map(authorId => authors[authorId].name)}</p>}
     {selected && <p>ISBN: {book.isbn}</p>}
+    {selected && <p>Format: {book.format}</p>}
+    {selected && <p>Year: {book.year}</p>}
+    {selected && <p>Available: {book.quantity}</p>}
+    {selected &&
+    <span>
+      <Link to={editPath}>Edit</Link>
+      <Link to={deletePath}>Delete</Link>
+    </span>}
     <hr/>
   </div>
 );
@@ -38,17 +47,23 @@ const Book = ({id, book, selected, onSelectBook}) => (
 Book.propTypes = {
   id: PropTypes.string.isRequired,
   book: BookPropType,
+  authors: PropTypes.object.isRequired,
   selected: PropTypes.bool,
   onSelectBook: PropTypes.func.isRequired,
+  editPath: PropTypes.string.isRequired,
+  deletePath: PropTypes.string.isRequired,
 };
 
-const BookList = ({books, orderedBooks, selectedBook, onSelectBook}) => {
+const BookList = ({books, authors, orderedBooks, selectedBook, onSelectBook, editPath, deletePath}) => {
   let booksAndHs = alphabetizeIds(orderedBooks, books, "orderingTitle",
     (bookId, book) => <Book key={bookId}
                             id={bookId}
                             book={book}
+                            authors={authors}
                             selected={selectedBook === bookId}
-                            onSelectBook={onSelectBook}/>
+                            onSelectBook={onSelectBook}
+                            editPath={`${editPath}/${bookId}`}
+                            deletePath={`${deletePath}/${bookId}`}/>
   );
   return (
     <div>
@@ -61,9 +76,12 @@ const BookList = ({books, orderedBooks, selectedBook, onSelectBook}) => {
 
 BookList.propTypes = {
   books: PropTypes.object.isRequired,
+  authors: PropTypes.object.isRequired,
   orderedBooks: PropTypes.array.isRequired,
   selectedBook: PropTypes.string.isRequired,
   onSelectBook: PropTypes.func.isRequired,
+  editPath: PropTypes.string.isRequired,
+  deletePath: PropTypes.string.isRequired,
 };
 
 export default BookList;

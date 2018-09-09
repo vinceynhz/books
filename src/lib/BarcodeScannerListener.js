@@ -2,7 +2,7 @@ const validIsbnCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "
 let capturing = false;
 let capturedData = "";
 
-export default function barcodeListener(event, onCapture) {
+export default function barcodeListener(event, onCapture, onStart, onEnd) {
   const keyName = event.key;
 
   if (keyName === "Control") {
@@ -14,12 +14,12 @@ export default function barcodeListener(event, onCapture) {
     if (keyName === "b") {
       capturing = true;
       capturedData = "";
-      console.log("start barcode capture");
+      if (onStart) onStart();
     } else if (keyName === "c" && capturing) {
       capturing = false;
-      // TODO: dispatch event
-      // onCapture(capturedData)
-      console.log("barcode captured: " + capturedData);
+      // console.log("barcode captured: " + capturedData);
+      if (capturedData.length > 0 && onCapture) onCapture(capturedData);
+      if (onEnd) onEnd();
     }
   } else if (capturing) {
     if (validIsbnCharacters.includes(keyName)) {
@@ -31,7 +31,8 @@ export default function barcodeListener(event, onCapture) {
       // TODO: generate all the keystrokes captured back to the event
       // https://stackoverflow.com/questions/596481/is-it-possible-to-simulate-key-press-events-programmatically
       capturing = false;
-      console.log("barcode capture canceled");
+      // console.log("barcode capture canceled");
+      if (onEnd) onEnd();
     }
 
   }

@@ -1,5 +1,8 @@
 import React from "react";
 
+const NUMBER_ID = "0-9";
+const TOP_ID = "top";
+
 export function alphabetizeIds(idArray, contentArray, orderingField, generator) {
   let contentAndHeaders = [];
   let currentInd = 0;
@@ -13,10 +16,10 @@ export function alphabetizeIds(idArray, contentArray, orderingField, generator) 
       isFirstChar = (char > currentInd);
       gotH = isFirstSymbol || isFirstChar;
       currentInd = isFirstSymbol ? 96 : isFirstChar ? char : currentInd;
-      charId = isFirstSymbol ? "!0-9" : isFirstChar ? content[orderingField].charAt(0).toUpperCase() : null;
+      charId = isFirstSymbol ? NUMBER_ID : isFirstChar ? content[orderingField].charAt(0).toUpperCase() : null;
       if (gotH) {
         contentAndHeaders.push(<HeaderId key={`h${currentInd}`} id={charId}/>);
-        contentAndHeaders.push(<AnchorToTop key={`a${currentInd}`}/>);
+        contentAndHeaders.push(<AnchorId id={TOP_ID} label={"Top"} key={`a${currentInd}`}/>);
       }
       contentAndHeaders.push(generator(contentId, content));
     }
@@ -31,13 +34,8 @@ function setFocusToId(id) {
   }
 }
 
-
-const AnchorId = ({id}) => (
-  <a href={`#${id}`} onClick={() => setFocusToId(id)}>{id}</a>
-);
-
-const AnchorToTop = () => (
-  <a href={"#top"} onClick={() => setFocusToId("top")}>Top</a>
+const AnchorId = ({id, label}) => (
+  <a href={`#${id}`} onClick={() => setFocusToId(id)}>{label ? label : id}</a>
 );
 
 const HeaderId = ({id}) => (
@@ -51,8 +49,8 @@ const AlphabeticNavigation = () => {
     letters.push(<AnchorId key={i} id={char}/>);
   }
   return (
-    <div id={"top"}>
-      <AnchorId id={"!0-9"}/>
+    <div id={TOP_ID}>
+      <AnchorId id={NUMBER_ID}/>
       {letters}
     </div>
   );

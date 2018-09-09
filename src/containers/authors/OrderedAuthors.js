@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import AlphabeticNavigation, {alphabetizeIds} from "components/AlphabeticNavigation";
 
-import {selectAuthor} from "lib/actions";
+import {selectResource, ResourceType} from "lib/actions";
 import {AuthorPropType} from "lib/PropTypeDefs";
 
 function nameForDisplay(name) {
@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToPros = dispatch => ({
-  onSelectAuthor: id => dispatch(selectAuthor(id)),
+  onSelectAuthor: id => dispatch(selectResource(ResourceType.AUTHORS, id)),
 });
 
 export default connect(

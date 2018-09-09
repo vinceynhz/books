@@ -5,15 +5,15 @@ body {
   padding: 0;
 }
 
-button {
-  border: none;
-  padding: 0;
-  text-decoration: none;
-  display: block;
-  background: none;
-  outline: none;
-  text-align: unset;
-}
+/*button {*/
+/*border: none;*/
+/*padding: 0;*/
+/*text-decoration: none;*/
+/*display: block;*/
+/*background: none;*/
+/*outline: none;*/
+/*text-align: unset;*/
+/*}*/
 
 .app-content {
   padding-top: 62px;
